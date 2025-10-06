@@ -6,17 +6,128 @@ namespace Rock_Paper_Scissors
     {
         static void Main(string[] args)
         {
-            bool done = false;
+            bool done = false, validHand = false;
             string handChoice;
+            string gameChoice;
+            int playerChoice = 0, botChoice, outcome;
+            int botWins = 0, playerWins = 0, ties = 0;
+
+            Random generator = new Random();
+
+            new Thread(() => BGM()).Start();
+            
+            Console.WriteLine("Welcome to Alex's Sentient Rock Paper Scissors Lizard Spock!");
 
             while (!done)
             {
-                BGM();
-                Thread.Sleep(1000);
+                Console.WriteLine("Play (P) or Quit (Q)?");
+
+                gameChoice = Console.ReadLine();
+
+                if (gameChoice.ToLower() == "quit" || gameChoice.ToLower() == "q")
+                {
+                    gameChoice = "";
+                    Console.Clear();
+                    Console.WriteLine("Thanks for playing!");
+                    done = true;
+                }
+
+                else if (gameChoice.ToLower() == "play" || gameChoice.ToLower() == "p")
+                {
+                    gameChoice = "";
+                    Console.Clear();
+
+                    while (!validHand)
+                    {
+                        Console.WriteLine("Time to make a choice!");
+                        Console.WriteLine(" 1. Rock (R) \n 2. Paper (P) \n 3. Scissors (S) \n 4. Lizard (L) \n 5. Spock (SP)");
+                        handChoice = Console.ReadLine();
+
+                        if (handChoice.ToLower() == "rock" || handChoice.ToLower() == "r" || handChoice == "1")
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You chose rock!");
+                            playerChoice = 0;
+                            validHand = true;
+                        }
+                        else if (handChoice.ToLower() == "paper" || handChoice.ToLower() == "p" || handChoice == "2")
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You chose paper!");
+                            playerChoice = 1;
+                            validHand = true;
+                        }
+
+                        else if (handChoice.ToLower() == "scissors" || handChoice.ToLower() == "s" || handChoice == "3")
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You chose Scissors!");
+                            playerChoice = 2;
+                            validHand = true;
+                        }
+
+                        else if (handChoice.ToLower() == "lizard" || handChoice.ToLower() == "l" || handChoice == "4")
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You chose lizard!");
+                            playerChoice = 3;
+                            validHand = true;
+                        }
+
+                        else if (handChoice.ToLower() == "spock" || handChoice.ToLower() == "sp" || handChoice == "5")
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You chose Spock!");
+                            playerChoice = 4;
+                            validHand = true;
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("Try Again!");
+                            Console.WriteLine();
+                        }
+
+                        botChoice = generator.Next(5);
+
+                        if (playerChoice == 0)
+                            Rock();
+                        else if (playerChoice == 1)
+                            Paper();
+                        else if (playerChoice == 2)
+                            Scissors();
+                        else if (playerChoice == 3)
+                            Lizard();
+                        else if (playerChoice == 4)
+                            Spock();
+
+                        if (botChoice == 0)
+                            Rock();
+                        else if (botChoice == 1)
+                            Paper();
+                        else if (botChoice == 2)
+                            Scissors();
+                        else if (botChoice == 3)
+                            Lizard();
+                        else if (botChoice == 4)
+                            Spock();
+
+                        if (playerChoice == botChoice)
+                        {
+                            Console.WriteLine("It's a tie!");
+                            ties = ties + 1;
+                        }
+
+                        
+
+                    }
+                }
+
+
+
             }
 
-            //Console.WriteLine("Welcome to Alex's Sentient Rock Paper Scissors Lizard Spock!");
-            
+
         }
 
         public static void Rock()
@@ -90,13 +201,41 @@ namespace Rock_Paper_Scissors
 
         public static void BGM()
         {
+            Console.Beep(330, 500); //E
+            Console.Beep(330, 500); //E
+            Console.Beep(349, 500); //F
+            Console.Beep(392, 500); //G
+           
+            Console.Beep(392, 500); //G
+            Console.Beep(349, 500); //F
+            Console.Beep(330, 500); //E
+            Console.Beep(294, 500); //D
+
             Console.Beep(262, 500); //C
             Console.Beep(262, 500); //C
+            Console.Beep(294, 500); //D
+            Console.Beep(330, 500); //E
+            Console.Beep(330, 500); //E
+            Console.Beep(294, 500); //D
+            Console.Beep(262, 500); //C
+
+            Console.Beep(330, 500); //E
+            Console.Beep(330, 500); //E
+            Console.Beep(349, 500); //F
             Console.Beep(392, 500); //G
+
             Console.Beep(392, 500); //G
-            Console.Beep(440, 500); //A
-            Console.Beep(440, 500); //A
-            Console.Beep(392, 500); //G
+            Console.Beep(349, 500); //F
+            Console.Beep(330, 500); //E
+            Console.Beep(294, 500); //D
+
+            Console.Beep(262, 500); //C
+            Console.Beep(262, 500); //C
+            Console.Beep(294, 500); //D
+            Console.Beep(330, 500); //E
+            Console.Beep(294, 500); //D
+            Console.Beep(262, 500); //C
+            Console.Beep(262, 500); //C
 
 
         }
