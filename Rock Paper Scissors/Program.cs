@@ -6,20 +6,26 @@ namespace Rock_Paper_Scissors
     {
         static void Main(string[] args)
         {
-            bool done = false, validHand = false;
+            bool done = false, validHand = false, validBet = false;
             string handChoice;
             string gameChoice;
             int playerChoice = 0, botChoice, outcome;
             int botWins = 0, playerWins = 0, ties = 0;
+            double bet = 0, totalMoney = 100, peakMoney = 0;
 
             Random generator = new Random();
 
             new Thread(() => BGM()).Start();
             
             Console.WriteLine("Welcome to Alex's Sentient Rock Paper Scissors Lizard Spock!");
+            validBet = false;
+            validHand = false;
 
             while (!done)
             {
+                if (totalMoney > peakMoney)
+                    peakMoney = totalMoney;
+                
                 Console.WriteLine("Play (P) or Quit (Q)?");
 
                 gameChoice = Console.ReadLine();
@@ -34,11 +40,31 @@ namespace Rock_Paper_Scissors
 
                 else if (gameChoice.ToLower() == "play" || gameChoice.ToLower() == "p")
                 {
-                    gameChoice = "";
+                    validBet = false;
                     Console.Clear();
+
+                    while (!validBet)
+                    {
+                        Console.WriteLine("Time to make a bet! Current BAL: " + totalMoney.ToString("c"));
+                        double.TryParse(Console.ReadLine(), out bet);
+
+                        if (bet > totalMoney || bet <= 0)
+                            Console.WriteLine("Invalid Bet.");
+                        else
+                        {
+                            Console.WriteLine("You've bet " + bet.ToString("c"));
+                            validBet = true;
+                        }
+
+                        validHand = false;
+                    }
+
+
 
                     while (!validHand)
                     {
+                        Console.Clear();
+                        
                         Console.WriteLine("Time to make a choice!");
                         Console.WriteLine(" 1. Rock (R) \n 2. Paper (P) \n 3. Scissors (S) \n 4. Lizard (L) \n 5. Spock (SP)");
                         handChoice = Console.ReadLine();
@@ -101,6 +127,9 @@ namespace Rock_Paper_Scissors
                         else if (playerChoice == 4)
                             Spock();
 
+                        Console.WriteLine();
+
+
                         if (botChoice == 0)
                             Rock();
                         else if (botChoice == 1)
@@ -118,6 +147,161 @@ namespace Rock_Paper_Scissors
                             ties = ties + 1;
                         }
 
+                        //Player WIN CONDITIONS
+
+                        else if (playerChoice == 0 && botChoice == 2)
+                        {
+                            Console.WriteLine("You Win! Rock crushes Scissors.");
+                            playerWins = playerWins + 1;
+                            totalMoney = totalMoney + (bet * 1.2);
+                            
+                        }
+
+                        else if (playerChoice == 0 && botChoice == 3)
+                        {
+                            Console.WriteLine("You Win! Rock crushes Lizard.");
+                            playerWins = playerWins + 1;
+                            totalMoney = totalMoney + (bet * 1.2);
+                            
+                        }
+
+                        else if (playerChoice == 1 && botChoice == 0)
+                        {
+                            Console.WriteLine("You Win! Paper covers Rock.");
+                            playerWins = playerWins + 1;
+                            totalMoney = totalMoney + (bet * 1.2);
+                        }
+
+                        else if (playerChoice == 1 && botChoice == 5)
+                        {
+                            Console.WriteLine("You Win! Paper disproves Spock.");
+                            playerWins = playerWins + 1;
+                            totalMoney = totalMoney + (bet * 1.2);
+                        }
+
+                        else if (playerChoice == 2 && botChoice == 1)
+                        {
+                            Console.WriteLine("You Win! Scissors cuts Paper.");
+                            playerWins = playerWins + 1;
+                            totalMoney = totalMoney + (bet * 1.2);
+                        }
+
+                        else if (playerChoice == 2 && botChoice == 3)
+                        {
+                            Console.WriteLine("You Win! Scissors decapitates Lizard.");
+                            playerWins = playerWins + 1;
+                            totalMoney = totalMoney + (bet * 1.2);
+                        }
+
+                        else if (playerChoice == 3 && botChoice == 4)
+                        {
+                            Console.WriteLine("You Win! Lizard poisons Spock.");
+                            playerWins = playerWins + 1;
+                            totalMoney = totalMoney + (bet * 1.2);
+                        }
+
+                        else if (playerChoice == 3 && botChoice == 1)
+                        {
+                            Console.WriteLine("You Win! Lizard eats Paper.");
+                            playerWins = playerWins + 1;
+                            totalMoney = totalMoney + (bet * 1.2);
+                        }
+
+                        else if (playerChoice == 4 && botChoice == 2)
+                        {
+                            Console.WriteLine("You Win! Spock smashes Scissors.");
+                            playerWins = playerWins + 1;
+                            totalMoney = totalMoney + (bet * 1.2);
+                        }
+
+                        else if (playerChoice == 4 && botChoice == 0)
+                        {
+                            Console.WriteLine("You Win! Spock vaporizes Rock.");
+                            playerWins = playerWins + 1;
+                            totalMoney = totalMoney + (bet * 1.2);
+                        }
+
+                        //BOT WIN CONDITIONS
+
+                        else if (botChoice == 0 && playerChoice == 2)
+                        {
+                            Console.WriteLine("You Lose! Rock crushes Scissors.");
+                            botWins = botWins + 1;
+                            totalMoney = totalMoney - (bet);
+                        }
+
+                        else if (botChoice == 0 && playerChoice == 3)
+                        {
+                            Console.WriteLine("You Lose! Rock crushes Lizard.");
+                            botWins = botWins + 1;
+                            totalMoney = totalMoney - (bet);
+                        }
+
+                        else if (botChoice == 1 && playerChoice == 0)
+                        {
+                            Console.WriteLine("You Lose! Paper covers Rock.");
+                            botWins = botWins + 1;
+                            totalMoney = totalMoney - (bet);
+                        }
+
+                        else if (botChoice == 1 && playerChoice == 5)
+                        {
+                            Console.WriteLine("You Lose! Paper disproves Spock.");
+                            botWins = botWins + 1;
+                            totalMoney = totalMoney - (bet);
+                        }
+
+                        else if (botChoice == 2 && playerChoice == 1)
+                        {
+                            Console.WriteLine("You Lose! Scissors cuts Paper.");
+                            botWins = botWins + 1;
+                            totalMoney = totalMoney - (bet);
+                        }
+
+                        else if (botChoice == 2 && playerChoice == 3)
+                        {
+                            Console.WriteLine("You Lose! Scissors decapitates Lizard.");
+                            botWins = botWins + 1;
+                            totalMoney = totalMoney - (bet);
+                        }
+
+                        else if (botChoice == 3 && playerChoice == 4)
+                        {
+                            Console.WriteLine("You Lose! Lizard poisons Spock.");
+                            botWins = botWins + 1;
+                            totalMoney = totalMoney - (bet);
+                        }
+
+                        else if (botChoice == 3 && playerChoice == 1)
+                        {
+                            Console.WriteLine("You Lose! Lizard eats Paper.");
+                            botWins = botWins + 1;
+                            totalMoney = totalMoney - (bet);
+                        }
+
+                        else if (botChoice == 4 && playerChoice == 2)
+                        {
+                            Console.WriteLine("You Lose! Spock smashes Scissors.");
+                            botWins = botWins + 1;
+                            totalMoney = totalMoney - (bet);
+                        }
+
+                        else if (botChoice == 4 && playerChoice == 0)
+                        {
+                            Console.WriteLine("You Lose! Spock vaporizes Rock.");
+                            botWins = botWins + 1;
+                            totalMoney = totalMoney - (bet);
+                        }
+
+                        Console.WriteLine("press ENTER to continue");
+                        Console.ReadLine();
+                        Console.Clear();
+
+                        if (totalMoney <= 0)
+                            done = true;
+
+                       
+                        gameChoice = "invalid";
                         
 
                     }
@@ -126,7 +310,10 @@ namespace Rock_Paper_Scissors
 
 
             }
-
+            Console.WriteLine("Game Over! Current Bal: " + totalMoney.ToString("c"));
+            Console.WriteLine("Wins: " + playerWins);
+            Console.WriteLine("Losses: " + botWins);
+            Console.WriteLine("Largest Amount of Money: " + peakMoney.ToString("c"));
 
         }
 
@@ -142,6 +329,7 @@ namespace Rock_Paper_Scissors
 
         public static void Paper()
         {
+
             Console.WriteLine("    _______");
             Console.WriteLine("---'   ____)______");
             Console.WriteLine("          ________)");
@@ -181,6 +369,49 @@ namespace Rock_Paper_Scissors
             Console.WriteLine("  |       |");
 
         
+        }
+
+        public static void Win()
+        {
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.Clear();
+            Thread.Sleep(500);
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.Clear();
+            Thread.Sleep(500);
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.Clear();
+            Thread.Sleep(500);
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.Clear();
+            Thread.Sleep(500);
+            Console.Clear();
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.Clear();
+            Thread.Sleep(500);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Clear();
+        }
+
+        public static void Lose()
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.Clear();
+            Thread.Sleep(150);
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.Clear();
+            Thread.Sleep(150);
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.Clear();
+            Thread.Sleep(150);
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.Clear();
+            Thread.Sleep(150);
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.Clear();
+            Thread.Sleep(150);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Clear();
         }
 
         public static void Notes()
