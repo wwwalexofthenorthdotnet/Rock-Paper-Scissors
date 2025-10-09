@@ -6,7 +6,8 @@ namespace Rock_Paper_Scissors
     {
         static void Main(string[] args)
         {
-            bool done = false, validHand = false, validBet = false;
+            bool done = false;
+            bool validHand = false, validBet = false;
             string handChoice;
             string gameChoice;
             int playerChoice = 0, botChoice, outcome;
@@ -432,43 +433,44 @@ namespace Rock_Paper_Scissors
 
         public static void BGM()
         {
-            Console.Beep(330, 500); //E
-            Console.Beep(330, 500); //E
-            Console.Beep(349, 500); //F
-            Console.Beep(392, 500); //G
-           
-            Console.Beep(392, 500); //G
-            Console.Beep(349, 500); //F
-            Console.Beep(330, 500); //E
-            Console.Beep(294, 500); //D
 
-            Console.Beep(262, 500); //C
-            Console.Beep(262, 500); //C
-            Console.Beep(294, 500); //D
-            Console.Beep(330, 500); //E
-            Console.Beep(330, 500); //E
-            Console.Beep(294, 500); //D
-            Console.Beep(262, 500); //C
+                Console.Beep(330, 500); //E
+                Console.Beep(330, 500); //E
+                Console.Beep(349, 500); //F
+                Console.Beep(392, 500); //G
 
-            Console.Beep(330, 500); //E
-            Console.Beep(330, 500); //E
-            Console.Beep(349, 500); //F
-            Console.Beep(392, 500); //G
+                Console.Beep(392, 500); //G
+                Console.Beep(349, 500); //F
+                Console.Beep(330, 500); //E
+                Console.Beep(294, 500); //D
 
-            Console.Beep(392, 500); //G
-            Console.Beep(349, 500); //F
-            Console.Beep(330, 500); //E
-            Console.Beep(294, 500); //D
+                Console.Beep(262, 500); //C
+                Console.Beep(262, 500); //C
+                Console.Beep(294, 500); //D
+                Console.Beep(330, 500); //E
+                Console.Beep(330, 500); //E
+                Console.Beep(294, 500); //D
+                Console.Beep(262, 500); //C
 
-            Console.Beep(262, 500); //C
-            Console.Beep(262, 500); //C
-            Console.Beep(294, 500); //D
-            Console.Beep(330, 500); //E
-            Console.Beep(294, 500); //D
-            Console.Beep(262, 500); //C
-            Console.Beep(262, 500); //C
+                Console.Beep(330, 500); //E
+                Console.Beep(330, 500); //E
+                Console.Beep(349, 500); //F
+                Console.Beep(392, 500); //G
 
+                Console.Beep(392, 500); //G
+                Console.Beep(349, 500); //F
+                Console.Beep(330, 500); //E
+                Console.Beep(294, 500); //D
 
+                Console.Beep(262, 500); //C
+                Console.Beep(262, 500); //C
+                Console.Beep(294, 500); //D
+                Console.Beep(330, 500); //E
+                Console.Beep(294, 500); //D
+                Console.Beep(262, 500); //C
+                Console.Beep(262, 500); //C
+
+            
         }
     }
 }
